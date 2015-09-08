@@ -68,13 +68,13 @@ MAKESETUP=      $(srcdir)/Modules/makesetup
 
 # Compiler options
 OPT=		-DNDEBUG -g -fwrapv -O3 -Wall -Wstrict-prototypes
-BASECFLAGS=	 -fno-strict-aliasing
-CFLAGS=		$(BASECFLAGS)  -fuse-ld=gold --sysroot /tmp/python-chaorenl/gcc/sysroot -B/tmp/python-chaorenl/gcc/lib/gcc/x86_64-linux/4.8 $(OPT) $(EXTRA_CFLAGS)
+BASECFLAGS=	 -fno-strict-aliasing -OPT:Olimit=0
+CFLAGS=		$(BASECFLAGS) -g -O2 $(OPT) $(EXTRA_CFLAGS)
 # Both CPPFLAGS and LDFLAGS need to contain the shell's value for setup.py to
 # be able to build extension modules using the directories specified in the
 # environment variables
 CPPFLAGS=	-I. -IInclude -I$(srcdir)/Include 
-LDFLAGS=	 -m64 --sysroot /tmp/python-chaorenl/gcc/sysroot -L/tmp/python-chaorenl/gcc/lib/gcc/x86_64-linux/4.8 -L/tmp/python-chaorenl/gcc/x86_64-linux/lib64
+LDFLAGS=	 -m64
 LDLAST=		
 SGI_ABI=	
 CCSHARED=	-fPIC
@@ -155,7 +155,7 @@ EXEMODE=	755
 FILEMODE=	644
 
 # configure script arguments
-CONFIG_ARGS=	 '--prefix=/tmp/python-chaorenl/install' '--enable-unicode=ucs4' '--enable-shared' 'CC=clang-3.5' 'CFLAGS= -fuse-ld=gold --sysroot /tmp/python-chaorenl/gcc/sysroot -B/tmp/python-chaorenl/gcc/lib/gcc/x86_64-linux/4.8' 'LDFLAGS= -m64 --sysroot /tmp/python-chaorenl/gcc/sysroot -L/tmp/python-chaorenl/gcc/lib/gcc/x86_64-linux/4.8 -L/tmp/python-chaorenl/gcc/x86_64-linux/lib64'
+CONFIG_ARGS=	 '--prefix=/tmp/python-chaorenl/install' '--enable-unicode=ucs4' '--enable-shared' 'CC=clang-3.5' 'LDFLAGS= -m64'
 
 
 # Subdirectories with code
