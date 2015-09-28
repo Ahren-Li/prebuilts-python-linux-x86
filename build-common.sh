@@ -1,5 +1,5 @@
 # latest version of this file can be found at
-# sso://googleplex-android/platform/external/lldb-utils
+# https://android.googlesource.com/platform/external/lldb-utils
 #
 # inputs
 # $PROJ - project name
@@ -25,7 +25,7 @@
 
 UNAME="$(uname)"
 SCRATCH=/tmp
-UPSTREAM=sso://googleplex-android/platform/prebuilts
+UPSTREAM=https://android.googlesource.com/platform/prebuilts
 case "$UNAME" in
 Linux)
     OS='linux'
@@ -112,7 +112,7 @@ esac
 
 commit_and_push()
 {
-    BRANCH=studio-master-dev
+    BRANCH=studio-1.4-dev
     # check into a local git clone
     rm -rf $SCRATCH/prebuilts/$PROJ/
     mkdir -p $SCRATCH/prebuilts/$PROJ/
