@@ -26,23 +26,28 @@ MODLIBS=        $(LOCALMODLIBS) $(BASEMODLIBS)
 
 # === Variables set by configure
 VERSION=	2.7
-srcdir=		/tmp/python-chaorenl/Python-2.7.10
-VPATH=		/tmp/python-chaorenl/Python-2.7.10
-abs_srcdir=	/tmp/python-chaorenl/Python-2.7.10
-abs_builddir=	/tmp/python-chaorenl/build
+srcdir=		/buildbot/src/googleplex-android/lldb-master-dev/out/python/source
+VPATH=		/buildbot/src/googleplex-android/lldb-master-dev/out/python/source
+abs_srcdir=	/buildbot/src/googleplex-android/lldb-master-dev/out/python/source
+abs_builddir=	/buildbot/src/googleplex-android/lldb-master-dev/out/python/build
 build=		x86_64-unknown-linux-gnu
 host=		x86_64-unknown-linux-gnu
 
-CC=		clang-3.5 -pthread
-CXX=		clang++-3.5 -pthread
+CC=		/buildbot/src/googleplex-android/lldb-master-dev/prebuilts/clang/linux-x86/host/3.6/bin/clang -pthread
+CXX=		/buildbot/src/googleplex-android/lldb-master-dev/prebuilts/clang/linux-x86/host/3.6/bin/clang++ -pthread
 MAINCC=		$(CC)
 LINKCC=		$(PURIFY) $(MAINCC)
 AR=		ar
 RANLIB=		ranlib
-SVNVERSION=	svnversion $(srcdir)
-HGVERSION=	hg id -i $(srcdir)
-HGTAG=		hg id -t $(srcdir)
-HGBRANCH=	hg id -b $(srcdir)
+SVNVERSION=	echo Unversioned directory
+HGVERSION=	
+HGTAG=		
+HGBRANCH=	
+PGO_PROF_GEN_FLAG=-fprofile-instr-generate
+PGO_PROF_USE_FLAG=-fprofile-instr-use=code.profclangd
+LLVM_PROF_MERGER=llvm-profdata merge -output=code.profclangd *.profclangr
+LLVM_PROF_FILE=LLVM_PROFILE_FILE="code-%p.profclangr"
+LLVM_PROF_ERR=yes
 
 GNULD=          yes
 
@@ -68,13 +73,13 @@ MAKESETUP=      $(srcdir)/Modules/makesetup
 
 # Compiler options
 OPT=		-DNDEBUG -g -fwrapv -O3 -Wall -Wstrict-prototypes
-BASECFLAGS=	 -fno-strict-aliasing -OPT:Olimit=0
-CFLAGS=		$(BASECFLAGS) -g -O2 $(OPT) $(EXTRA_CFLAGS)
+BASECFLAGS=	 -fno-strict-aliasing
+CFLAGS=		$(BASECFLAGS) -fuse-ld=gold --gcc-toolchain=/buildbot/src/googleplex-android/lldb-master-dev/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.15-4.8 --sysroot /buildbot/src/googleplex-android/lldb-master-dev/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.15-4.8/sysroot -B/buildbot/src/googleplex-android/lldb-master-dev/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.15-4.8/bin/x86_64-linux- -m64  $(OPT) $(EXTRA_CFLAGS)
 # Both CPPFLAGS and LDFLAGS need to contain the shell's value for setup.py to
 # be able to build extension modules using the directories specified in the
 # environment variables
 CPPFLAGS=	-I. -IInclude -I$(srcdir)/Include 
-LDFLAGS=	 -m64
+LDFLAGS=	-fuse-ld=gold --gcc-toolchain=/buildbot/src/googleplex-android/lldb-master-dev/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.15-4.8 --sysroot /buildbot/src/googleplex-android/lldb-master-dev/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.15-4.8/sysroot -B/buildbot/src/googleplex-android/lldb-master-dev/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.15-4.8/bin/x86_64-linux- -m64  -Wl,-rpath,\$$ORIGIN/../lib:\$$ORIGIN/../..
 LDLAST=		
 SGI_ABI=	
 CCSHARED=	-fPIC
@@ -93,7 +98,7 @@ MACHDEP=	linux2
 MULTIARCH=	
 
 # Install prefix for architecture-independent files
-prefix=		/tmp/python-chaorenl/install
+prefix=		
 
 # Install prefix for architecture-dependent files
 exec_prefix=	${prefix}
@@ -143,7 +148,7 @@ MACOSX_DEPLOYMENT_TARGET=
 OTHER_LIBTOOL_OPT=
 
 # Environment to run shared python without installed libraries
-RUNSHARED=       LD_LIBRARY_PATH=/tmp/python-chaorenl/build
+RUNSHARED=       LD_LIBRARY_PATH=/buildbot/src/googleplex-android/lldb-master-dev/out/python/build
 
 # ensurepip options
 ENSUREPIP=      no
@@ -155,7 +160,7 @@ EXEMODE=	755
 FILEMODE=	644
 
 # configure script arguments
-CONFIG_ARGS=	 '--prefix=/tmp/python-chaorenl/install' '--enable-unicode=ucs4' '--enable-shared' 'CC=clang-3.5' 'LDFLAGS= -m64'
+CONFIG_ARGS=	 '--prefix=' '--enable-unicode=ucs4' '--enable-shared' 'CC=/buildbot/src/googleplex-android/lldb-master-dev/prebuilts/clang/linux-x86/host/3.6/bin/clang' 'CFLAGS=-fuse-ld=gold --gcc-toolchain=/buildbot/src/googleplex-android/lldb-master-dev/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.15-4.8 --sysroot /buildbot/src/googleplex-android/lldb-master-dev/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.15-4.8/sysroot -B/buildbot/src/googleplex-android/lldb-master-dev/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.15-4.8/bin/x86_64-linux- -m64 ' 'LDFLAGS=-fuse-ld=gold --gcc-toolchain=/buildbot/src/googleplex-android/lldb-master-dev/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.15-4.8 --sysroot /buildbot/src/googleplex-android/lldb-master-dev/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.15-4.8/sysroot -B/buildbot/src/googleplex-android/lldb-master-dev/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.15-4.8/bin/x86_64-linux- -m64  -Wl,-rpath,\$$ORIGIN/../lib:\$$ORIGIN/../..'
 
 
 # Subdirectories with code
@@ -205,8 +210,12 @@ TCLTK_INCLUDES=
 TCLTK_LIBS=	
 
 # The task to run while instrument when building the profile-opt target
-PROFILE_TASK=	$(srcdir)/Tools/pybench/pybench.py -n 2 --with-gc --with-syscheck
-#PROFILE_TASK=	$(srcdir)/Lib/test/regrtest.py
+PROFILE_TASK=-m test.regrtest --pgo
+
+# report files for gcov / lcov coverage report
+COVERAGE_INFO=	$(abs_builddir)/coverage.info
+COVERAGE_REPORT=$(abs_builddir)/lcov-report
+COVERAGE_REPORT_OPTIONS=--no-branch-coverage --title "CPython lcov report"
 
 # === Definitions added by makesetup ===
 
@@ -317,6 +326,16 @@ ASDLGEN=	$(srcdir)/Parser/asdl_c.py
 
 ##########################################################################
 # Python
+
+OPCODETARGETS_H= \
+		$(srcdir)/Python/opcode_targets.h
+		
+OPCODETARGETGEN= \
+		$(srcdir)/Python/makeopcodetargets.py
+
+OPCODETARGETGEN_FILES= \
+		$(OPCODETARGETGEN) $(srcdir)/Lib/opcode.py
+
 PYTHON_OBJS=	\
 		Python/_warnings.o \
 		Python/Python-ast.o \
@@ -427,32 +446,78 @@ LIBRARY_OBJS=	\
 all:		build_all
 build_all:	$(BUILDPYTHON) oldsharedmods sharedmods gdbhooks
 
-# Compile a binary with gcc profile guided optimization.
+# Compile a binary with profile guided optimization.
 profile-opt:
+	@if [ $(LLVM_PROF_ERR) == yes ]; then \
+		echo "Error: Cannot perform PGO build because llvm-profdata was not found in PATH" ;\
+		echo "Please add it to PATH and run ./configure again" ;\
+		exit 1;\
+	fi
 	@echo "Building with support for profile generation:"
 	$(MAKE) clean
-	$(MAKE) build_all_generate_profile
-	@echo "Running benchmark to generate profile data:"
 	$(MAKE) profile-removal
+	$(MAKE) build_all_generate_profile
+	$(MAKE) profile-removal
+	@echo "Running code to generate profile data (this can take a while):"
 	$(MAKE) run_profile_task
+	$(MAKE) build_all_merge_profile
 	@echo "Rebuilding with profile guided optimizations:"
 	$(MAKE) clean
 	$(MAKE) build_all_use_profile
+	$(MAKE) profile-removal
 
 build_all_generate_profile:
-	$(MAKE) all CFLAGS="$(CFLAGS) -fprofile-generate" LIBS="$(LIBS) -lgcov"
+	$(MAKE) all CFLAGS="$(CFLAGS) $(PGO_PROF_GEN_FLAG)" LDFLAGS="$(LDFLAGS) $(PGO_PROF_GEN_FLAG)" LIBS="$(LIBS)"
 
 run_profile_task:
 	: # FIXME: can't run for a cross build
-	./$(BUILDPYTHON) $(PROFILE_TASK)
+	$(LLVM_PROF_FILE) ./$(BUILDPYTHON) $(PROFILE_TASK) || true
+
+build_all_merge_profile:
+	$(LLVM_PROF_MERGER)
 
 build_all_use_profile:
-	$(MAKE) all CFLAGS="$(CFLAGS) -fprofile-use"
+	$(MAKE) all CFLAGS="$(CFLAGS) $(PGO_PROF_USE_FLAG)"
 
+# Compile and run with gcov
+.PHONY=coverage coverage-lcov coverage-report
 coverage:
 	@echo "Building with support for coverage checking:"
-	$(MAKE) clean
+	$(MAKE) clean profile-removal
 	$(MAKE) all CFLAGS="$(CFLAGS) -O0 -pg -fprofile-arcs -ftest-coverage" LIBS="$(LIBS) -lgcov"
+
+coverage-lcov:
+	@echo "Creating Coverage HTML report with LCOV:"
+	@rm -f $(COVERAGE_INFO)
+	@rm -rf $(COVERAGE_REPORT)
+	@lcov --capture --directory $(abs_builddir) \
+	    --base-directory $(realpath $(abs_builddir)) \
+	    --path $(realpath $(abs_srcdir)) \
+	    --output-file $(COVERAGE_INFO)
+	: # remove 3rd party modules and system headers
+	@lcov --remove $(COVERAGE_INFO) \
+	    '*/Modules/_ctypes/libffi*/*' \
+	    '*/Modules/expat/*' \
+	    '*/Modules/zlib/*' \
+	    '*/Include/*' \
+	    '/usr/include/*' \
+	    '/usr/local/include/*' \
+	    --output-file $(COVERAGE_INFO)
+	@genhtml $(COVERAGE_INFO) --output-directory $(COVERAGE_REPORT) \
+	    $(COVERAGE_REPORT_OPTIONS)
+	@echo
+	@echo "lcov report at $(COVERAGE_REPORT)/index.html"
+	@echo
+
+coverage-report:
+	: # force rebuilding of parser
+	@touch $(GRAMMAR_INPUT)
+	: # build with coverage info
+	$(MAKE) coverage
+	: # run tests, ignore failures
+	$(TESTPYTHON) $(TESTPROG) $(TESTOPTS) || true
+	: # build lcov report
+	$(MAKE) coverage-lcov
 
 
 # Build the interpreter
@@ -480,11 +545,15 @@ pybuilddir.txt: $(BUILDPYTHON)
 		exit 1 ; \
 	fi
 
+# This is shared by the math and cmath modules
+Modules/_math.o: Modules/_math.c Modules/_math.h
+	$(CC) -c $(CCSHARED) $(PY_CFLAGS) -o $@ $<
+
 # Build the shared modules
 # Under GNU make, MAKEFLAGS are sorted and normalized; the 's' for
 # -s, --silent or --quiet is always the first char.
 # Under BSD make, MAKEFLAGS might be " -s -v x=y".
-sharedmods: $(BUILDPYTHON) pybuilddir.txt
+sharedmods: $(BUILDPYTHON) pybuilddir.txt Modules/_math.o
 	@case "$$MAKEFLAGS" in \
 	    *\ -s*|s*) quiet="-q";; \
 	    *) quiet="";; \
@@ -687,6 +756,11 @@ Objects/bytearrayobject.o: $(srcdir)/Objects/bytearrayobject.c \
 
 Objects/stringobject.o: $(srcdir)/Objects/stringobject.c \
 				$(STRINGLIB_HEADERS)
+
+$(OPCODETARGETS_H): $(OPCODETARGETGEN_FILES)
+	$(OPCODETARGETGEN) $(OPCODETARGETS_H)
+
+Python/ceval.o: $(OPCODETARGETS_H)
 
 Python/formatter_unicode.o: $(srcdir)/Python/formatter_unicode.c \
 				$(STRINGLIB_HEADERS)
@@ -901,6 +975,10 @@ $(DESTSHARED):
 #  $(PYTHON) -> python2 -> python$(VERSION))
 # Also create equivalent chains for other installed files
 bininstall:	altbininstall
+	if test ! -d $(DESTDIR)$(LIBPC); then \
+		echo "Creating directory $(LIBPC)"; \
+		$(INSTALL) -d -m $(DIRMODE) $(DESTDIR)$(LIBPC); \
+	fi
 	-if test -f $(DESTDIR)$(BINDIR)/$(PYTHON) -o -h $(DESTDIR)$(BINDIR)/$(PYTHON); \
 	then rm -f $(DESTDIR)$(BINDIR)/$(PYTHON); \
 	else true; \
@@ -1332,9 +1410,12 @@ clean: pycremoval
 	find build -name 'fficonfig.h' -exec rm -f {} ';' || true
 	find build -name 'fficonfig.py' -exec rm -f {} ';' || true
 	-rm -f Lib/lib2to3/*Grammar*.pickle
+	-rm -rf build
 
 profile-removal:
 	find . -name '*.gc??' -exec rm -f {} ';'
+	find . -name '*.profclang?' -exec rm -f {} ';'
+	find . -name '*.dyn' -exec rm -f {} ';'
 
 clobber: clean profile-removal
 	-rm -f $(BUILDPYTHON) $(PGEN) $(LIBRARY) $(LDLIBRARY) $(DLLLIBRARY) \
