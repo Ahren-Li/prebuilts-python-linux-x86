@@ -1,4 +1,4 @@
-#!/tmp/python-chaorenl/install/bin/python2.7
+#!/bin/python2.7
 
 import pydoc
 if __name__ == '__main__':
