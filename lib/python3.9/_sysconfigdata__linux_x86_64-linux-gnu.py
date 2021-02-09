@@ -13,32 +13,34 @@ build_time_vars = {'ABIFLAGS': '',
  'BINDIR': '/tmpfs/src/out/install/bin',
  'BINLIBDEST': '/tmpfs/src/out/install/lib/python3.9',
  'BLDLIBRARY': '-L. -lpython3.9',
- 'BLDSHARED': 'cc -Wno-unused-command-line-argument -s '
-              "-Wl,-rpath,'$ORIGIN/../lib' -pthread -shared",
+ 'BLDSHARED': 'gcc -pthread -shared -Wno-unused-command-line-argument -s '
+              "-Wl,-rpath,'$ORIGIN/../lib'",
  'BUILDEXE': '',
  'BUILDPYTHON': 'python',
  'BUILD_GNU_TYPE': 'x86_64-pc-linux-gnu',
  'BYTESTR_DEPS': '\\',
- 'CC': "cc -Wno-unused-command-line-argument -s -Wl,-rpath,'$ORIGIN/../lib' "
-       '-pthread',
+ 'CC': 'gcc -pthread',
  'CCSHARED': '-fPIC',
- 'CFLAGS': '-Wno-unused-result -Wsign-compare -DNDEBUG -g  -O3 -Wall',
+ 'CFLAGS': '-Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall '
+           '-Wno-unused-command-line-argument',
  'CFLAGSFORSHARED': '-fPIC',
  'CFLAGS_ALIASING': '',
  'CFLAGS_NODIST': '',
  'CONFIGFILES': 'configure configure.ac acconfig.h pyconfig.h.in '
                 'Makefile.pre.in',
- 'CONFIGURE_CFLAGS': '',
+ 'CONFIGURE_CFLAGS': '-Wno-unused-command-line-argument',
  'CONFIGURE_CFLAGS_NODIST': '-std=c99 -Wextra -Wno-unused-result '
                             '-Wno-unused-parameter '
                             '-Wno-missing-field-initializers '
                             '-Werror=implicit-function-declaration '
                             '-fvisibility=hidden',
  'CONFIGURE_CPPFLAGS': '',
- 'CONFIGURE_LDFLAGS': '',
+ 'CONFIGURE_LDFLAGS': '-Wno-unused-command-line-argument -s '
+                      "-Wl,-rpath,'$ORIGIN/../lib'",
  'CONFIGURE_LDFLAGS_NODIST': '',
- 'CONFIG_ARGS': "'--prefix=/tmpfs/src/out/install' '--enable-shared' 'CC=cc "
-                '-Wno-unused-command-line-argument -s '
+ 'CONFIG_ARGS': "'--prefix=/tmpfs/src/out/install' '--enable-shared' "
+                "'CFLAGS=-Wno-unused-command-line-argument' "
+                "'LDFLAGS=-Wno-unused-command-line-argument -s "
                 "-Wl,-rpath,'\\''$ORIGIN/../lib'\\'''",
  'CONFINCLUDEDIR': '/tmpfs/src/out/install/include',
  'CONFINCLUDEPY': '/tmpfs/src/out/install/include/python3.9',
@@ -49,8 +51,7 @@ build_time_vars = {'ABIFLAGS': '',
                             'report"',
  'CPPFLAGS': '-IObjects -IInclude -IPython -I. '
              '-I/tmpfs/src/git/cpython3/Include',
- 'CXX': "c++ -Wno-unused-command-line-argument -s -Wl,-rpath,'$ORIGIN/../lib' "
-        '-pthread',
+ 'CXX': 'g++ -pthread',
  'DESTDIRS': '/tmpfs/src/out/install /tmpfs/src/out/install/lib '
              '/tmpfs/src/out/install/lib/python3.9 '
              '/tmpfs/src/out/install/lib/python3.9/lib-dynload',
@@ -239,7 +240,7 @@ build_time_vars = {'ABIFLAGS': '',
  'HAVE_GETPWNAM_R': 1,
  'HAVE_GETPWUID_R': 1,
  'HAVE_GETRANDOM': 0,
- 'HAVE_GETRANDOM_SYSCALL': 0,
+ 'HAVE_GETRANDOM_SYSCALL': 1,
  'HAVE_GETRESGID': 1,
  'HAVE_GETRESUID': 1,
  'HAVE_GETSID': 1,
@@ -283,13 +284,13 @@ build_time_vars = {'ABIFLAGS': '',
  'HAVE_LINUX_CAN_J1939_H': 0,
  'HAVE_LINUX_CAN_RAW_FD_FRAMES': 1,
  'HAVE_LINUX_CAN_RAW_H': 1,
- 'HAVE_LINUX_CAN_RAW_JOIN_FILTERS': 0,
- 'HAVE_LINUX_MEMFD_H': 0,
+ 'HAVE_LINUX_CAN_RAW_JOIN_FILTERS': 1,
+ 'HAVE_LINUX_MEMFD_H': 1,
  'HAVE_LINUX_NETLINK_H': 1,
  'HAVE_LINUX_QRTR_H': 0,
  'HAVE_LINUX_RANDOM_H': 1,
  'HAVE_LINUX_TIPC_H': 1,
- 'HAVE_LINUX_VM_SOCKETS_H': 0,
+ 'HAVE_LINUX_VM_SOCKETS_H': 1,
  'HAVE_LINUX_WAIT_H': 1,
  'HAVE_LOCKF': 1,
  'HAVE_LOG1P': 1,
@@ -415,7 +416,7 @@ build_time_vars = {'ABIFLAGS': '',
  'HAVE_STDARG_PROTOTYPES': 1,
  'HAVE_STDINT_H': 1,
  'HAVE_STDLIB_H': 1,
- 'HAVE_STD_ATOMIC': 0,
+ 'HAVE_STD_ATOMIC': 1,
  'HAVE_STRDUP': 1,
  'HAVE_STRFTIME': 1,
  'HAVE_STRINGS_H': 1,
@@ -514,7 +515,7 @@ build_time_vars = {'ABIFLAGS': '',
  'HAVE_WMEMCMP': 1,
  'HAVE_WORKING_TZSET': 1,
  'HAVE_WRITEV': 1,
- 'HAVE_X509_VERIFY_PARAM_SET1_HOST': 0,
+ 'HAVE_X509_VERIFY_PARAM_SET1_HOST': 1,
  'HAVE_ZLIB_COPY': 1,
  'HAVE__GETPTY': 0,
  'HOST_GNU_TYPE': 'x86_64-pc-linux-gnu',
@@ -532,14 +533,13 @@ build_time_vars = {'ABIFLAGS': '',
  'INSTSONAME': 'libpython3.9.so.1.0',
  'IO_H': 'Modules/_io/_iomodule.h',
  'IO_OBJS': '\\',
- 'LDCXXSHARED': 'c++ -Wno-unused-command-line-argument -s '
-                "-Wl,-rpath,'$ORIGIN/../lib' -pthread -shared",
- 'LDFLAGS': '',
+ 'LDCXXSHARED': 'g++ -pthread -shared',
+ 'LDFLAGS': "-Wno-unused-command-line-argument -s -Wl,-rpath,'$ORIGIN/../lib'",
  'LDFLAGS_NODIST': '',
  'LDLIBRARY': 'libpython3.9.so',
  'LDLIBRARYDIR': '',
- 'LDSHARED': 'cc -Wno-unused-command-line-argument -s '
-             "-Wl,-rpath,'$ORIGIN/../lib' -pthread -shared",
+ 'LDSHARED': 'gcc -pthread -shared -Wno-unused-command-line-argument -s '
+             "-Wl,-rpath,'$ORIGIN/../lib'",
  'LDVERSION': '3.9',
  'LIBC': '',
  'LIBDEST': '/tmpfs/src/out/install/lib/python3.9',
@@ -556,21 +556,19 @@ build_time_vars = {'ABIFLAGS': '',
  'LIBRARY_OBJS_OMIT_FROZEN': '\\',
  'LIBS': '-lcrypt -lpthread -ldl  -lutil -lm',
  'LIBSUBDIRS': 'tkinter tkinter/test tkinter/test/test_tkinter \\',
- 'LINKCC': 'cc -Wno-unused-command-line-argument -s '
-           "-Wl,-rpath,'$ORIGIN/../lib' -pthread",
+ 'LINKCC': 'gcc -pthread',
  'LINKFORSHARED': '-Xlinker -export-dynamic',
  'LIPO_32BIT_FLAGS': '',
  'LLVM_PROF_ERR': 'no',
  'LLVM_PROF_FILE': '',
- 'LLVM_PROF_MERGER': '',
+ 'LLVM_PROF_MERGER': 'true',
  'LN': 'ln',
  'LOCALMODLIBS': '',
  'MACHDEP': 'linux',
  'MACHDEP_OBJS': '',
  'MACHDESTLIB': '/tmpfs/src/out/install/lib/python3.9',
  'MACOSX_DEPLOYMENT_TARGET': '',
- 'MAINCC': 'cc -Wno-unused-command-line-argument -s '
-           "-Wl,-rpath,'$ORIGIN/../lib' -pthread",
+ 'MAINCC': 'gcc -pthread',
  'MAJOR_IN_MKDEV': 0,
  'MAJOR_IN_SYSMACROS': 0,
  'MAKESETUP': '/tmpfs/src/git/cpython3/Modules/makesetup',
@@ -603,7 +601,7 @@ build_time_vars = {'ABIFLAGS': '',
  'OPENSSL_INCLUDES': '',
  'OPENSSL_LDFLAGS': '',
  'OPENSSL_LIBS': '-lssl -lcrypto',
- 'OPT': '-DNDEBUG -g  -O3 -Wall',
+ 'OPT': '-DNDEBUG -g -fwrapv -O3 -Wall',
  'OTHER_LIBTOOL_OPT': '',
  'PACKAGE_BUGREPORT': 0,
  'PACKAGE_NAME': 0,
@@ -616,8 +614,8 @@ build_time_vars = {'ABIFLAGS': '',
                 'Parser/tokenizer.o',
  'PEGEN_HEADERS': '\\',
  'PEGEN_OBJS': '\\',
- 'PGO_PROF_GEN_FLAG': '',
- 'PGO_PROF_USE_FLAG': '',
+ 'PGO_PROF_GEN_FLAG': '-fprofile-generate',
+ 'PGO_PROF_USE_FLAG': '-fprofile-use -fprofile-correction',
  'PLATLIBDIR': 'lib',
  'POBJS': '\\',
  'POSIX_SEMAPHORES_NOT_ENABLED': 0,
@@ -637,9 +635,10 @@ build_time_vars = {'ABIFLAGS': '',
  'PYTHON_HEADERS': '\\',
  'PYTHON_OBJS': '\\',
  'PY_BUILTIN_HASHLIB_HASHES': '"md5,sha1,sha256,sha512,sha3,blake2"',
- 'PY_BUILTIN_MODULE_CFLAGS': '-Wno-unused-result -Wsign-compare -DNDEBUG -g  '
-                             '-O3 -Wall -std=c99 -Wextra -Wno-unused-result '
-                             '-Wno-unused-parameter '
+ 'PY_BUILTIN_MODULE_CFLAGS': '-Wno-unused-result -Wsign-compare -DNDEBUG -g '
+                             '-fwrapv -O3 -Wall '
+                             '-Wno-unused-command-line-argument -std=c99 '
+                             '-Wextra -Wno-unused-result -Wno-unused-parameter '
                              '-Wno-missing-field-initializers '
                              '-Werror=implicit-function-declaration '
                              '-fvisibility=hidden  '
@@ -647,31 +646,36 @@ build_time_vars = {'ABIFLAGS': '',
                              '-IObjects -IInclude -IPython -I. '
                              '-I/tmpfs/src/git/cpython3/Include -fPIC '
                              '-DPy_BUILD_CORE_BUILTIN',
- 'PY_CFLAGS': '-Wno-unused-result -Wsign-compare -DNDEBUG -g  -O3 -Wall',
+ 'PY_CFLAGS': '-Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall '
+              '-Wno-unused-command-line-argument',
  'PY_CFLAGS_NODIST': '-std=c99 -Wextra -Wno-unused-result '
                      '-Wno-unused-parameter -Wno-missing-field-initializers '
                      '-Werror=implicit-function-declaration '
                      '-fvisibility=hidden  '
                      '-I/tmpfs/src/git/cpython3/Include/internal',
  'PY_COERCE_C_LOCALE': 1,
- 'PY_CORE_CFLAGS': '-Wno-unused-result -Wsign-compare -DNDEBUG -g  -O3 -Wall '
-                   '-std=c99 -Wextra -Wno-unused-result -Wno-unused-parameter '
+ 'PY_CORE_CFLAGS': '-Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 '
+                   '-Wall -Wno-unused-command-line-argument -std=c99 -Wextra '
+                   '-Wno-unused-result -Wno-unused-parameter '
                    '-Wno-missing-field-initializers '
                    '-Werror=implicit-function-declaration -fvisibility=hidden  '
                    '-I/tmpfs/src/git/cpython3/Include/internal -IObjects '
                    '-IInclude -IPython -I. -I/tmpfs/src/git/cpython3/Include '
                    '-fPIC -DPy_BUILD_CORE',
- 'PY_CORE_LDFLAGS': '',
+ 'PY_CORE_LDFLAGS': '-Wno-unused-command-line-argument -s '
+                    "-Wl,-rpath,'$ORIGIN/../lib'",
  'PY_CPPFLAGS': '-IObjects -IInclude -IPython -I. '
                 '-I/tmpfs/src/git/cpython3/Include',
  'PY_FORMAT_SIZE_T': '"z"',
- 'PY_LDFLAGS': '',
+ 'PY_LDFLAGS': '-Wno-unused-command-line-argument -s '
+               "-Wl,-rpath,'$ORIGIN/../lib'",
  'PY_LDFLAGS_NODIST': '',
  'PY_SSL_DEFAULT_CIPHERS': 1,
  'PY_SSL_DEFAULT_CIPHER_STRING': 0,
- 'PY_STDMODULE_CFLAGS': '-Wno-unused-result -Wsign-compare -DNDEBUG -g  -O3 '
-                        '-Wall -std=c99 -Wextra -Wno-unused-result '
-                        '-Wno-unused-parameter -Wno-missing-field-initializers '
+ 'PY_STDMODULE_CFLAGS': '-Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv '
+                        '-O3 -Wall -Wno-unused-command-line-argument -std=c99 '
+                        '-Wextra -Wno-unused-result -Wno-unused-parameter '
+                        '-Wno-missing-field-initializers '
                         '-Werror=implicit-function-declaration '
                         '-fvisibility=hidden  '
                         '-I/tmpfs/src/git/cpython3/Include/internal -IObjects '
