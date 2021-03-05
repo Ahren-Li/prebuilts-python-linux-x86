@@ -497,7 +497,7 @@
 /* #undef HAVE_GETRANDOM */
 
 /* Define to 1 if the Linux getrandom() syscall is available */
-/* #undef HAVE_GETRANDOM_SYSCALL */
+#define HAVE_GETRANDOM_SYSCALL 1
 
 /* Define to 1 if you have the `getresgid' function. */
 #define HAVE_GETRESGID 1
@@ -633,10 +633,10 @@
 #define HAVE_LINUX_CAN_RAW_H 1
 
 /* Define if compiling using Linux 4.1 or later. */
-/* #undef HAVE_LINUX_CAN_RAW_JOIN_FILTERS */
+#define HAVE_LINUX_CAN_RAW_JOIN_FILTERS 1
 
 /* Define to 1 if you have the <linux/memfd.h> header file. */
-/* #undef HAVE_LINUX_MEMFD_H */
+#define HAVE_LINUX_MEMFD_H 1
 
 /* Define to 1 if you have the <linux/netlink.h> header file. */
 #define HAVE_LINUX_NETLINK_H 1
@@ -651,7 +651,7 @@
 #define HAVE_LINUX_TIPC_H 1
 
 /* Define to 1 if you have the <linux/vm_sockets.h> header file. */
-/* #undef HAVE_LINUX_VM_SOCKETS_H */
+#define HAVE_LINUX_VM_SOCKETS_H 1
 
 /* Define to 1 if you have the <linux/wait.h> header file. */
 #define HAVE_LINUX_WAIT_H 1
@@ -1033,7 +1033,7 @@
 #define HAVE_STDLIB_H 1
 
 /* Has stdatomic.h with atomic_int and atomic_uintptr_t */
-/* #undef HAVE_STD_ATOMIC */
+#define HAVE_STD_ATOMIC 1
 
 /* Define to 1 if you have the `strdup' function. */
 #define HAVE_STRDUP 1
@@ -1337,7 +1337,7 @@
 #define HAVE_WRITEV 1
 
 /* Define if libssl has X509_VERIFY_PARAM_set1_host and related function */
-/* #undef HAVE_X509_VERIFY_PARAM_SET1_HOST */
+#define HAVE_X509_VERIFY_PARAM_SET1_HOST 1
 
 /* Define if the zlib library has inflateCopy */
 #define HAVE_ZLIB_COPY 1
